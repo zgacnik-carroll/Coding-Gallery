@@ -37,7 +37,7 @@ class Monster:
 class Goblin(Monster):
     # A fast, weak monster that inherits the Monster constructor.
     def __init__(self):
-        super().__init__("Goblin", "G", hp = 20, speed = 1)
+        super().__init__("Goblin", "G", hp = 20, speed = 2)
 
 class Ogre(Monster):
     # A strong, slow monster that inherits the Monster constructor.
