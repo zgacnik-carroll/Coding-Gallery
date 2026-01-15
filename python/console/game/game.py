@@ -71,7 +71,7 @@ class Game:
                 lane = int(input("Lane (1-3): ")) - 1
                 col = int(input("Column (1-6): ")) - 1
             except ValueError:
-                print("❌ Invalid number input.")
+                print("Invalid number input.")
                 continue
 
             if not (0 <= lane < self.board.lanes and 0 <= col < self.board.width):
