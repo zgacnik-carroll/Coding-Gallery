@@ -33,6 +33,9 @@ class Game:
         self.wave = 1
         self.max_waves = 5
         self.spawn_wave()
+        self.max_waves = 10
+        self.monsters_killed = 0
+        self.monsters_escaped = 0
 
     def spawn_wave(self):
         """Spawn a new wave of monsters."""
@@ -137,18 +140,23 @@ class Game:
                 monster.move()
 
     def cleanup_monsters(self):
-        # Remove dead or escaped monsters and adjust gold and lives.
+        """Remove dead or escaped monsters and adjust gold/lives."""
         remaining = []
+
         for monster, lane in self.board.monsters:
             if monster.position >= self.board.width:
                 self.lives -= 1
-                print(f" {monster.name} escaped! Lives -1")
+                self.monsters_escaped += 1
             elif monster.is_alive():
                 remaining.append((monster, lane))
             else:
                 self.gold += 10
-                print(f" {monster.name} defeated! +10 gold")
+                self.monsters_killed += 1
+
         self.board.monsters = remaining
+
+    def is_game_won(self):
+        return self.wave > self.max_waves and not self.board.monsters
 
     def is_game_over(self):
         """Return True if the player has no remaining lives."""
