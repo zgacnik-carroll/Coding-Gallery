@@ -61,6 +61,7 @@ class TitleScreen:
 
         description = (
             "Defend your lanes by placing towers.\n"
+            "Towers can only attack monsters in their lane.\n"
             "Stop enemies before they reach the end.\n\n"
             "🏹 Arrow Towers: Cheap, fast attacks\n"
             "💣 Cannon Towers: Powerful splash damage\n\n"
@@ -285,7 +286,7 @@ class TowerDefenseGUI:
 
         if self.game.wave_cleared():
             if self.game.wave == self.game.max_waves:
-                self.show_end_screen("YOU SURVIVED ALL WAVES!", "gold")
+                self.show_end_screen("YOU SURVIVED ALL WAVES!", "lightgreen")
                 return
             self.game.wave += 1
             self.game.spawn_wave()
