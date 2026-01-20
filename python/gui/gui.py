@@ -6,7 +6,7 @@ import tkinter as tk
 from game.game import Game
 from entities.towers import ArrowTower, CannonTower
 
-# Game symbols (emojis copied from Google)
+# Game symbols (emojis copied from Google).
 
 ARROW_TOWER_SYMBOL = "🏹"
 CANNON_TOWER_SYMBOL = "💣"
@@ -14,8 +14,9 @@ CANNON_TOWER_SYMBOL = "💣"
 GOBLIN_SYMBOL = "G"
 OGRE_SYMBOL = "O"
 
-# Visual configuration constants
-# Colors were decided based on a dark theme with light lettering.
+# Visual configuration constants.
+
+# Background colors.
 
 BG_MAIN = "#1e1e1e"
 BG_BOARD = "#000000"
@@ -24,17 +25,28 @@ BG_TOWER = "#4a7a3c"
 BG_MONSTER = "#7a3c3c"
 BG_HOVER = "#3c5a7a"
 
+# Foreground colors.
+
 FG_TEXT = "#ffffff"
 FG_MUTED = "#bbbbbb"
+
+# Fonts.
 
 FONT_TITLE = ("Tahoma", 26, "bold")
 FONT_STATUS = ("Arial", 14)
 FONT_BUTTON = ("Arial", 12)
 FONT_CELL = ("Consolas", 16, "bold")
 
+# Grid cell dimensions.
+
 CELL_WIDTH = 6
 CELL_HEIGHT = 3
+
+# Padding for spacing.
+
 PADDING = 12
+
+# Title Screen / Main Menu.
 
 class TitleScreen:
 
@@ -44,11 +56,11 @@ class TitleScreen:
         self.root = root
         self.start_callback = start_callback
 
+        # Main frame for the title screen
         self.frame = tk.Frame(root, bg=BG_MAIN)
         self.frame.pack(fill=tk.BOTH, expand=True)
 
-        # Title
-
+        # Title label
         tk.Label(
             self.frame,
             text="Tower Defense",
@@ -57,7 +69,7 @@ class TitleScreen:
             bg=BG_MAIN
         ).pack(pady=(60, 20))
 
-        # Description
+        # Game description and instructions.
 
         description = (
             "Defend your lanes by placing towers.\n"
@@ -77,7 +89,7 @@ class TitleScreen:
             justify=tk.CENTER
         ).pack(pady=20)
 
-        # Buttons
+        # Start and Exit buttons.
 
         tk.Button(
             self.frame,
@@ -98,14 +110,17 @@ class TitleScreen:
         ).pack(pady=10)
 
     def start_game(self):
-        """Fade out title screen, then start game."""
+        """Fade out the title screen and start the main game."""
         self.fade_out(self.frame, callback=self.start_callback)
 
-    # Fade in effect code referenced from this source:
+    # Fade effect referenced from:
     # https://python-forum.io/thread-43391.html
 
     def fade_out(self, widget, callback=None, step=0.05, delay=20):
-        """Gradually fade out a widget by lowering alpha."""
+        """
+        Gradually fade out a widget by lowering window alpha.
+        Once fade out is complete, destroy widget and call callback.
+        """
         root = self.root
         alpha = root.attributes("-alpha")
 
@@ -123,6 +138,8 @@ class TitleScreen:
 
         _fade()
 
+# Main Game GUI.
+
 class TowerDefenseGUI:
 
     """Graphical interface for the Tower Defense game."""
@@ -131,12 +148,14 @@ class TowerDefenseGUI:
         self.root = root
         self.root.title("Tower Defense")
         self.root.configure(bg=BG_MAIN)
-        self.game_finished = False
+        self.game_finished = False  # Flag to indicate end of game
+
+        # Initialize game logic.
 
         self.game = Game()
         self.selected_tower = None
 
-        # Title
+        # Title.
 
         self.title_label = tk.Label(
             root,
@@ -147,7 +166,7 @@ class TowerDefenseGUI:
         )
         self.title_label.pack(pady=(10, 5))
 
-        # Status bar
+        # Status bar.
 
         self.status_frame = tk.Frame(root, bg=BG_MAIN)
         self.status_frame.pack(pady=5)
@@ -156,11 +175,13 @@ class TowerDefenseGUI:
         self.gold_label = tk.Label(self.status_frame, font=FONT_STATUS, fg=FG_TEXT, bg=BG_MAIN)
         self.lives_label = tk.Label(self.status_frame, font=FONT_STATUS, fg=FG_TEXT, bg=BG_MAIN)
 
+        # Pack the status labels.
+
         self.wave_label.pack(side=tk.LEFT, padx=15)
         self.gold_label.pack(side=tk.LEFT, padx=15)
         self.lives_label.pack(side=tk.LEFT, padx=15)
 
-        # Board
+        # Board.
 
         self.board_frame = tk.Frame(
             root,
@@ -172,14 +193,18 @@ class TowerDefenseGUI:
         )
         self.board_frame.pack(pady=10)
 
-        # Controls
+        # Controls.
 
         self.controls_frame = tk.Frame(root, bg=BG_MAIN)
         self.controls_frame.pack(pady=10)
 
+        # Create control buttons and board cells.
+
         self.create_controls()
         self.create_board()
         self.update_display()
+
+        # Legend for symbols.
 
         self.legend_label = tk.Label(
             self.root,
@@ -240,6 +265,9 @@ class TowerDefenseGUI:
                     cursor="hand2",
                     command=lambda l=lane, c=col: self.on_cell_click(l, c)
                 )
+
+                # Preview hover effect
+
                 btn.bind("<Enter>", lambda e, l=lane, c=col: self.on_hover(l, c))
                 btn.bind("<Leave>", lambda e: self.update_display())
                 btn.grid(row=lane, column=col)
@@ -255,7 +283,7 @@ class TowerDefenseGUI:
         )
 
     def on_cell_click(self, lane, col):
-        """Attempt to place a tower."""
+        """Attempt to place a tower on the selected cell."""
         if not self.selected_tower:
             return
 
@@ -265,7 +293,7 @@ class TowerDefenseGUI:
             self.update_display()
 
     def on_hover(self, lane, col):
-        """Preview placement."""
+        """Preview placement with hover effect."""
         if self.game_finished:
             return
 
@@ -273,6 +301,7 @@ class TowerDefenseGUI:
             self.cells[lane][col].config(bg=BG_HOVER)
 
     def end_turn(self):
+        """Perform all actions for end-of-turn."""
         if self.game.is_game_over():
             return
 
@@ -280,9 +309,13 @@ class TowerDefenseGUI:
         self.game.move_monsters()
         self.game.cleanup_monsters()
 
+        # Check for game over.
+
         if self.game.is_game_over():
             self.show_end_screen("GAME OVER", "red")
             return
+
+        # Spawn new wave or show victory.
 
         if self.game.wave_cleared():
             if self.game.wave == self.game.max_waves:
@@ -294,8 +327,10 @@ class TowerDefenseGUI:
         self.update_display()
 
     def show_end_screen(self, text, color):
-        """Display end game screen."""
+        """Display end-of-game screen and disable board interaction."""
         self.game_finished = True
+
+        # Disable all board cells.
 
         for row in self.cells:
             for btn in row:
@@ -303,7 +338,11 @@ class TowerDefenseGUI:
                 btn.unbind("<Leave>")
                 btn.config(state=tk.DISABLED)
 
+        # Update title text.
+
         self.title_label.config(text=text, fg=color)
+
+        # Clear control buttons and add Restart / Exit buttons.
 
         for widget in self.controls_frame.winfo_children():
             widget.destroy()
@@ -325,33 +364,43 @@ class TowerDefenseGUI:
         ).pack(side=tk.LEFT, padx=PADDING)
 
     def restart_game(self):
-        """Restart the application cleanly."""
+        """Restart the application cleanly by reinitializing the GUI."""
         for widget in self.root.winfo_children():
             widget.destroy()
         self.__init__(self.root)
 
     def update_display(self):
-        """Redraw the board and update status."""
+        """Redraw the board and update all status labels and buttons."""
         if self.game_finished:
             return
+
+        # Update status labels.
 
         self.wave_label.config(text=f"Wave: {self.game.wave}")
         self.gold_label.config(text=f"Gold: {self.game.gold}")
         self.lives_label.config(text=f"Lives: {self.game.lives}")
 
+        # Enable/disable tower buttons based on available gold.
+
         self.arrow_btn.config(state=tk.NORMAL if self.game.gold >= 50 else tk.DISABLED)
         self.cannon_btn.config(state=tk.NORMAL if self.game.gold >= 80 else tk.DISABLED)
+
+        # Update board cells.
 
         for lane in range(self.game.board.lanes):
             for col in range(self.game.board.width):
                 btn = self.cells[lane][col]
                 btn.config(text="", bg=BG_CELL)
 
+                # Display towers.
+
                 if (lane, col) in self.game.board.towers:
                     tower = self.game.board.towers[(lane, col)]
                     symbol = ARROW_TOWER_SYMBOL if tower.name.startswith("Arrow") else CANNON_TOWER_SYMBOL
                     btn.config(text=symbol, bg=BG_TOWER)
                     continue
+
+                # Display monsters.
 
                 for monster, m_lane in self.game.board.monsters:
                     if monster.is_alive() and m_lane == lane and monster.position == col:
