@@ -21,7 +21,7 @@ root.resizable(True, True)
 # Fade in effect for the window on startup reference:
 # https://python-forum.io/thread-43391.html
 
-root.attributes("-alpha", 0.0)  # Start fully transparent
+root.attributes("-alpha", 0.0)
 
 
 def fade_in(alpha=0.0):

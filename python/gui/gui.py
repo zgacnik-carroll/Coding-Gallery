@@ -73,10 +73,12 @@ class TitleScreen:
 
         description = (
             "Defend your lanes by placing towers.\n"
-            "Towers can only attack monsters in their lane.\n"
+            "Towers can only attack monsters within two blocks in their lane.\n"
             "Stop enemies before they reach the end.\n\n"
-            "🏹 Arrow Towers: Cheap, fast attacks\n"
-            "💣 Cannon Towers: Powerful splash damage\n\n"
+            "🏹 Arrow Towers: Cost 50 gold, 10hp damage per attack\n"
+            "💣 Cannon Towers: Cost 80 gold, 20hp per attack\n"
+            "Goblin (G): 20hp, moves fast\n"
+            "Ogre (O): 40hp, moves slow\n\n"
             "Survive all waves to win!"
         )
 
