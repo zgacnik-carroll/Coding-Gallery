@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, jsonify
+from flask import Flask, render_template, session, jsonify, redirect, url_for
 from game import MonsterGame
 
 app = Flask(__name__)
@@ -25,9 +25,24 @@ def save_game(game):
     }
 
 @app.route("/")
-def index():
+def menu():
+    session.clear()
+    session["started"] = False
+    return render_template("menu.html")
+
+@app.route("/start")
+def start_game():
+    session["started"] = True
+    return redirect("/game")
+
+@app.route("/game", methods=["GET"])
+def game():
+    if not session.get("started"):
+        return redirect(url_for("menu"))
+
     game = get_game()
     stage = game.get_stage()
+
     return render_template(
         "index.html",
         xp=game.xp,

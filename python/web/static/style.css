@@ -79,3 +79,16 @@ button:disabled {
     color: #a5b4fc;
     font-weight: 600;
 }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
+.menu-btn {
+    font-size: 20px;
+    padding: 16px 40px;
+    margin-top: 20px;
+}
