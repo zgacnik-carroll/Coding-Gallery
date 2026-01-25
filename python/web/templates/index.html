@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Character encoding for proper text rendering -->
     <meta charset="UTF-8">
+
+    <!-- Page title shown in the browser tab -->
     <title>Monster Evolution Clicker</title>
+
+    <!-- Ensures proper scaling on mobile and smaller screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Link to the main stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
+<!-- Main container for all game content -->
 <main class="container">
+
+    <!-- Game title -->
     <h1>Monster Evolution Clicker</h1>
 
+    <!-- Displays current game statistics -->
     <section class="stats">
         <p>XP: <span id="xp">{{ xp }}</span></p>
         <p>XP per click: <span id="click_value">{{ click_value }}</span></p>
         <p>Next upgrade cost: <span id="upgrade_cost">{{ upgrade_cost }}</span></p>
     </section>
 
+    <!-- Displays the monster image based on its current evolution stage -->
     <section class="monster-display">
         <img
             id="monster"
@@ -27,8 +39,12 @@
         >
     </section>
 
+    <!-- Player controls for interacting with the game -->
     <section class="controls">
+        <!-- Button to gain XP by clicking the monster -->
         <button id="clickBtn">Click Monster</button>
+
+        <!-- Button to upgrade the monster; disabled if XP is insufficient -->
         <button
             id="upgradeBtn"
             {% if xp < upgrade_cost %}disabled{% endif %}
@@ -37,12 +53,18 @@
         </button>
     </section>
 
+    <!-- Button to quit the game and return to the main menu -->
     <section>
-        <button id="quitBtn" onclick="window.location.href='{{ url_for('quit_game') }}'">Quit Game</button>
+        <button
+            id="quitBtn"
+            onclick="window.location.href='{{ url_for('quit_game') }}'">
+            Quit Game
+        </button>
     </section>
 
 </main>
 
+<!-- External JavaScript file handling game logic and UI updates -->
 <script src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>

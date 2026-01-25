@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Page title shown in the browser tab -->
     <title>Monster Evolution Clicker</title>
+
+    <!-- Link to the main stylesheet for consistent styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body class="menu">
+    <!-- Main game title -->
     <h1>Monster Evolution Clicker</h1>
+
+    <!-- Short subtitle describing the gameplay loop -->
     <p class="subtitle">Click. Upgrade. Evolve.</p>
+
+    <!-- Instructions section explaining how to play the game -->
     <div class="instructions">
         <p>
-          Instructions:</br></br>
-          Use "Click Monster" to gain XP. Use "Upgrade Monster" to increase your XP per click.
-          Your monster evolves as you gain XP. Click "Quit Game" anytime to return to this menu and reset your progress.
-          See how far you can evolve your monster!
+            <!-- Section header for instructions -->
+            Instructions:<br><br>
+
+            <!-- Gameplay explanation -->
+            Use "Click Monster" to gain XP. Use "Upgrade Monster" to increase your XP per click.
+            Your monster evolves as you gain XP. Click "Quit Game" anytime to return to this menu
+            and reset your progress. See how far you can evolve your monster!
         </p>
     </div>
+
+    <!-- Start Game button that routes the player into the game -->
     <a href="{{ url_for('start_game') }}">
-      <button class="menu-btn">Start Game</button>
+        <button class="menu-btn">Start Game</button>
     </a>
 </body>
 </html>
