@@ -13,6 +13,9 @@ from game import MonsterGame
 app = Flask(__name__)
 
 # Secret key required for securely using sessions
+# Flask's secret key and session handling was not written by me.
+# Source credit is listed below:
+# https://flask.palletsprojects.com/en/stable/config/
 app.secret_key = "supersecretkey"
 
 
