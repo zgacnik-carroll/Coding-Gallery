@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Monster Evolution Clicker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <h1>Monster Evolution Clicker</h1>
 
+    <p>XP: <span id="xp">{{ xp }}</span></p>
+    <p>XP per click: <span id="click_value">{{ click_value }}</span></p>
+    <p>Next upgrade cost: <span id="upgrade_cost">{{ upgrade_cost }}</span></p>
+
+    <!-- Monster Stage Image -->
+    <img id="monster" src="{{ url_for('static', filename='stage' ~ stage ~ '.png') }}" alt="Monster" width="200">
+
+    <div>
+        <button id="clickBtn">Click Monster!</button>
+        <button id="upgradeBtn" {% if xp < upgrade_cost %}disabled{% endif %}>Upgrade Monster</button>
+    </div>
+
+    <!-- Link external JavaScript -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>
