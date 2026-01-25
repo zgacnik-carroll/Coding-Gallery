@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Monster Evolution Clicker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
+<main class="container">
     <h1>Monster Evolution Clicker</h1>
 
-    <p>XP: <span id="xp">{{ xp }}</span></p>
-    <p>XP per click: <span id="click_value">{{ click_value }}</span></p>
-    <p>Next upgrade cost: <span id="upgrade_cost">{{ upgrade_cost }}</span></p>
+    <section class="stats">
+        <p>XP: <span id="xp">{{ xp }}</span></p>
+        <p>XP per click: <span id="click_value">{{ click_value }}</span></p>
+        <p>Next upgrade cost: <span id="upgrade_cost">{{ upgrade_cost }}</span></p>
+    </section>
 
-    <!-- Monster Stage Image -->
-    <img id="monster" src="{{ url_for('static', filename='stage' ~ stage ~ '.png') }}" alt="Monster" width="200">
+    <section class="monster-display">
+        <img
+            id="monster"
+            src="{{ url_for('static', filename='stage' ~ stage ~ '.png') }}"
+            alt="Current monster evolution stage"
+            width="200"
+        >
+    </section>
 
-    <div>
-        <button id="clickBtn">Click Monster!</button>
-        <button id="upgradeBtn" {% if xp < upgrade_cost %}disabled{% endif %}>Upgrade Monster</button>
-    </div>
+    <section class="controls">
+        <button id="clickBtn">Click Monster</button>
+        <button
+            id="upgradeBtn"
+            {% if xp < upgrade_cost %}disabled{% endif %}
+        >
+            Upgrade Monster
+        </button>
+    </section>
+</main>
 
-    <!-- Link external JavaScript -->
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
 </body>
 </html>
