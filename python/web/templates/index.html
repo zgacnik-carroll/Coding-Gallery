@@ -36,6 +36,11 @@
             Upgrade Monster
         </button>
     </section>
+
+    <section>
+        <button id="quitBtn" onclick="window.location.href='{{ url_for('quit_game') }}'">Quit Game</button>
+    </section>
+
 </main>
 
 <script src="{{ url_for('static', filename='main.js') }}"></script>

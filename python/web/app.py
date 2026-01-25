@@ -35,6 +35,11 @@ def start_game():
     session["started"] = True
     return redirect("/game")
 
+@app.route("/quit")
+def quit_game():
+    session.clear()
+    return redirect(url_for("menu"))
+
 @app.route("/game", methods=["GET"])
 def game():
     if not session.get("started"):
