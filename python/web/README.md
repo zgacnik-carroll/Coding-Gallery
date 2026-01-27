@@ -86,9 +86,9 @@ Monster Evolution Clicker is a simple clicker-style game focused on progression 
 
 ### Evolution Stages
 - **Stage 1:** 0–9 XP  
-- **Stage 2:** 10–149 XP  
-- **Stage 3:** 150–399 XP  
-- **Stage 4:** 400+ XP  
+- **Stage 2:** 10–49 XP  
+- **Stage 3:** 50–249 XP  
+- **Stage 4:** 250+ XP  
 
 Each stage is represented by a different monster image that updates dynamically during gameplay.
 
