@@ -92,6 +92,8 @@ Monster Evolution Clicker is a simple clicker-style game focused on progression 
 
 Each stage is represented by a different monster image that updates dynamically during gameplay.
 
+---
+
 ### Closing Remarks
 
 Monster Evolution Clicker is designed to be easy to understand while still demonstrating key game and web development concepts. The upgrade-driven evolution system encourages strategic progression and provides clear visual feedback as the monster grows stronger. This makes the game both engaging to play and effective as a learning project.
